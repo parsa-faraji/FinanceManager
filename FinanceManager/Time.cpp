@@ -40,3 +40,15 @@ string Time::getDayOrNight() const { return dayOrNight;}
 bool Time::isValidTime() const {
     return hour >= 0 && hour <= 12 && minute >= 0 && minute <= 59 && (dayOrNight == "pm" || dayOrNight == "am");
 }
+
+// opeartor overload
+
+bool Time::operator==(const Time& other) const {
+    return hour == other.hour && minute == other.minute && dayOrNight == other.dayOrNight;
+}
+
+std::ostream& operator<<(std::ostream& os, const Time& time) {
+    os << (time.hour < 10 ? "0" : "") << time.hour << ":"
+       << (time.minute < 10 ? "0" : "") << time.minute << " " << time.dayOrNight;
+    return os;
+}

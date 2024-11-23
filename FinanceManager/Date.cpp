@@ -33,3 +33,13 @@ void Date::setDay(short int newDay) {
     if (newDay < 1 || newDay > maxDays) throw std::invalid_argument("Invalid day for the given month.");
     day = newDay;
 }
+
+// getter for year
+short int Date::getYear() const { return year; }
+
+// getter for month
+short int Date::getMonth() const { return month; }
+
+// getter for day
+short int Date::getDay() const { return day; }
+

@@ -11,8 +11,7 @@ Account::Account(long long accountNumber, double balance)
 
 // sets the account number with validation to ensure it is non-negative
 void Account::setAccountNumber(long long newAccountNumber) {
-    // a bank account number should have at least 8 digits
-    if (newAccountNumber < 0 || (std::to_string(newAccountNumber).length() < 8)) {
+    if (newAccountNumber < 0) {
         throw std::invalid_argument("Account number cannot be negative.");
     }
     accountNumber = newAccountNumber;

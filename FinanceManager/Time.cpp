@@ -31,3 +31,8 @@ void Time::setDayOrNight(string newDayOrNight) {
     }
     dayOrNight = newDayOrNight;
 }
+
+
+short int Time::getHour() const { return hour; }
+short int Time::getMinute() const { return minute; }
+string Time::getDayOrNight() const { return dayOrNight;}

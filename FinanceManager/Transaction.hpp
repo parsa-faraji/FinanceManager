@@ -31,6 +31,9 @@ struct Transaction {
     double amount;
     TransactionMethod method;
 
+    // constructors
+    Transaction(string type, Date date, Time time, Account account, double amount, string category, TransactionMethod method);
+    
     // utility functions
     Date getDate() const { return date; }
     double getAmount() const { return amount; }

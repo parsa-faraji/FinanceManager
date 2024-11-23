@@ -13,6 +13,14 @@
 
 using namespace std;
 
+// constructor
+Transaction::Transaction(string type, Date date, Time time, Account account, double amount, string category, TransactionMethod method)
+    : transactionType(type), date(date), time(time), account(account), amount(amount), category(category), method(method) {
+    if (!isValidTransaction()) {
+        throw std::invalid_argument("Invalid transaction provided.");
+    }
+}
+
 // check if the transaction is valid
 bool Transaction::isValidTransaction() const {
     return !transactionType.empty() && date.isValidDate() && time.isValidTime() && !category.empty();
@@ -26,8 +34,7 @@ string Transaction::toCSV() const {
         << setfill('0') << setw(2) << date.getDay() << "/"
         << setw(4) << date.getYear() << "," // ensure year is always 4 digits
         << setfill('0') << setw(2) << time.getHour() << ":"
-        << setfill('0') << setw(2) << time.getMinute()
-        << setw(2) << time.getDayOrNight()
+        << setfill('0') << setw(2) << time.getMinute() << "," // Add comma after time
         << account.getAccountNumber() << ","
         << fixed << setprecision(2) << amount << ","
         << category << ","
@@ -55,7 +62,7 @@ Transaction Transaction::fromCSV(const string& csvLine) {
     int month = stoi(dateStr.substr(0, 2));
     int day = stoi(dateStr.substr(3, 2));
     int year = stoi(dateStr.substr(6, 4)); // ensure we extract 4 digits for the year
-    Date date(month, day, year);
+    Date date(year, month, day);
 
     // parse and validate the time
     if (timeStr.size() != 5 || timeStr[2] != ':') {
@@ -66,19 +73,21 @@ Transaction Transaction::fromCSV(const string& csvLine) {
     Time time(hour, minute);
 
     // parse account number
-    long long accountNumber;
-    try {
-        accountNumber = stoll(accountStr);
-    } catch (const exception& e) {
-        throw invalid_argument("Invalid account number: " + accountStr);
+    accountStr.erase(0, accountStr.find_first_not_of(" \t")); // Trim leading spaces
+    accountStr.erase(accountStr.find_last_not_of(" \t") + 1); // Trim trailing spaces
+    if (accountStr.length() < 8) {
+        throw invalid_argument("Account number must have at least 8 digits: " + accountStr);
     }
+    long long accountNumber = stoll(accountStr);
 
     // parse amount
+    amountStr.erase(0, amountStr.find_first_not_of(" \t")); // Trim leading spaces
+    amountStr.erase(amountStr.find_last_not_of(" \t") + 1); // Trim trailing spaces
     double amount;
     try {
         amount = stod(amountStr);
     } catch (const exception& e) {
-        throw invalid_argument("Invalid amount: " + amountStr);
+        throw invalid_argument("Invalid amount format: " + amountStr);
     }
 
     // parse transaction method
@@ -92,7 +101,7 @@ Transaction Transaction::fromCSV(const string& csvLine) {
     }
 
     // construct and return the transaction object
-    return Transaction{type, date, time, Account(accountNumber, 0.0), amount, categoryStr, method};
+    return Transaction(type, date, time, Account(accountNumber, 0.0), amount, categoryStr, method);
 }
 
 // equality operator

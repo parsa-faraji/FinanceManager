@@ -96,7 +96,7 @@ T getValidatedInput(const string& prompt) {
 
 // processFile function
 void processFile() {
-    fstream fout("/Users/parsafaraji/Desktop/Project2-FinanceManagementApp/Project2-FinanceManagementApp/data.txt", ios::out | ios::app);
+    fstream fout("/Users/parsafaraji/Desktop/FinanceManager/FinanceManager/data.txt", ios::out | ios::app);
     if (!fout.is_open()) {
         cerr << "Error opening file. Please check file directory or permissions." << endl;
         return;
@@ -120,7 +120,7 @@ void processFile() {
                     cerr << "Invalid month. Please enter a value between 1 and 12." << endl;
                     break;
                 }
-                vector<Transaction> transactions = readTransactionsFromFile("/Users/parsafaraji/Desktop/Project2-FinanceManagementApp/Project2-FinanceManagementApp/data.txt");
+                vector<Transaction> transactions = readTransactionsFromFile("/Users/parsafaraji/Desktop/FinanceManager/FinanceManager/data.txt");
                 if (!transactions.empty()) {
                     displayMonthlySpendingPattern(transactions, month);
                 } else {

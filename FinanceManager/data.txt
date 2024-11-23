@@ -1,0 +1,4 @@
+Deposit,12/12/2024,12:12,124135423,100.00,Food,Online
+Purchase,12/12/2024,12:12,123214134,-100.00,Education,Online
+Deposit,12/12/2024,12:12,65346457,20.00,Food,Online
+Purchase,12/12/2024,12:12,12412412,-100.00,Food,In-store

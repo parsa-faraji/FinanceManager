@@ -1,14 +1,14 @@
-//
-//  main.cpp
-//  FinanceManager
-//
-//  Created by Parsa Faraji on 11/22/24.
-//
-
 #include <iostream>
+#include "util.hpp"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using namespace std;
+
+int main() {
+    // display welcome message
+    cout << "welcome to the finance management app!" << endl;
+    
+    // call the principal function
+    FinanceManagement::processFile();
+
     return 0;
 }

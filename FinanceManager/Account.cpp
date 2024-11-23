@@ -25,3 +25,17 @@ void Account::setBalance(double newBalance) {
     }
     balance = newBalance;
 }
+
+// getter for account number
+long long Account::getAccountNumber() const { return accountNumber; }
+
+// getter for account balance
+double Account::getBalance() const { return balance; }
+
+// deposits a specified amount into the account, ensuring it is non-negative
+void Account::deposit(double amount) {
+    if (amount < 0) {
+        throw std::invalid_argument("Deposit amount cannot be negative.");
+    }
+    balance += amount;
+}

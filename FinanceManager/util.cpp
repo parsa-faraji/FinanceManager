@@ -93,3 +93,46 @@ T getValidatedInput(const string& prompt) {
     }
     return value;
 }
+
+// processFile function
+void processFile() {
+    fstream fout("/Users/parsafaraji/Desktop/Project2-FinanceManagementApp/Project2-FinanceManagementApp/data.txt", ios::out | ios::app);
+    if (!fout.is_open()) {
+        cerr << "Error opening file. Please check file directory or permissions." << endl;
+        return;
+    }
+
+    while (true) {
+        cout << "\n===============================================\n";
+        cout << "Welcome to Finance Management App\n";
+        cout << "===============================================\n";
+        cout << "1) Record a transaction\n2) View monthly summary\n3) Exit\n";
+        cout << "===============================================\n";
+
+        int choice = getValidatedInput<int>("Enter your choice: ");
+        switch (choice) {
+            case 1:
+                recordTransaction(fout);
+                break;
+            case 2: {
+                int month = getValidatedInput<int>("Enter the month (1-12) for the summary: ");
+                if (month < 1 || month > 12) {
+                    cerr << "Invalid month. Please enter a value between 1 and 12." << endl;
+                    break;
+                }
+                vector<Transaction> transactions = readTransactionsFromFile("/Users/parsafaraji/Desktop/Project2-FinanceManagementApp/Project2-FinanceManagementApp/data.txt");
+                if (!transactions.empty()) {
+                    displayMonthlySpendingPattern(transactions, month);
+                } else {
+                    cerr << "No transactions found." << endl;
+                }
+                break;
+            }
+            case 3:
+                fout.close();
+                return;
+            default:
+                cerr << "Invalid choice. Please try again." << endl;
+        }
+    }
+}

@@ -94,3 +94,27 @@ Transaction Transaction::fromCSV(const string& csvLine) {
     // construct and return the transaction object
     return Transaction{type, date, time, Account(accountNumber, 0.0), amount, categoryStr, method};
 }
+
+// equality operator
+bool Transaction::operator==(const Transaction& other) const {
+    return transactionType == other.transactionType &&
+           date == other.date &&
+           time == other.time &&
+           account == other.account &&
+           amount == other.amount &&
+           category == other.category &&
+           method == other.method;
+}
+
+// stream insertion operator
+ostream& operator<<(ostream& os, const Transaction& transaction) {
+    os << "Transaction Details:\n"
+       << "  Type: " << transaction.transactionType << "\n"
+       << "  Date: " << transaction.date << "\n"
+       << "  Time: " << transaction.time << "\n"
+       << "  Account: " << transaction.account.getAccountNumber() << "\n"
+       << "  Amount: $" << transaction.amount << "\n"
+       << "  Category: " << transaction.category << "\n"
+       << "  Method: " << (transaction.method == TransactionMethod::InStore ? "In-store" : "Online") << "\n";
+    return os;
+}

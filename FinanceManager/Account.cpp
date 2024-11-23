@@ -39,3 +39,27 @@ void Account::deposit(double amount) {
     }
     balance += amount;
 }
+
+// withdraws a specified amount from the account, ensuring it is non-negative and does not exceed the current balance
+void Account::withdraw(double amount) {
+    if (amount < 0) {
+        throw std::invalid_argument("Withdrawal amount cannot be negative.");
+    }
+    if (amount > balance) {
+        throw std::invalid_argument("Insufficient funds for withdrawal.");
+    }
+    balance -= amount;
+}
+
+// equality operator: compares two accounts for equality based on account number and balance
+bool Account::operator==(const Account& other) const {
+    return accountNumber == other.accountNumber &&
+           balance == other.balance;
+}
+
+// stream insertion operator: outputs the account details (number and balance)
+std::ostream& operator<<(std::ostream& os, const Account& account) {
+    os << "Account Number: " << account.accountNumber << "\n"
+       << "Balance: $" << account.balance;
+    return os;
+}

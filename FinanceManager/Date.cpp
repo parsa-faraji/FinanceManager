@@ -43,3 +43,15 @@ short int Date::getMonth() const { return month; }
 // getter for day
 short int Date::getDay() const { return day; }
 
+// utility function to validate the date
+bool Date::isValidDate() const {
+    // array of days in each month
+    static const short int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    short int maxDays = daysInMonth[month - 1];
+
+    // adjust for leap years if the month is February
+    if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))) maxDays = 29;
+
+    // validate the month and day
+    return month >= 1 && month <= 12 && day >= 1 && day <= maxDays && year > 1;
+}

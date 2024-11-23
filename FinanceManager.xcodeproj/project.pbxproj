@@ -12,6 +12,7 @@
 		C18F28EF2CF182C400336809 /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28ED2CF182C400336809 /* Time.cpp */; };
 		C18F28F22CF183B000336809 /* Account.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28F02CF183B000336809 /* Account.cpp */; };
 		C18F28F52CF1A74100336809 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28F32CF1A74100336809 /* Transaction.cpp */; };
+		C18F28F82CF1A86600336809 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28F62CF1A86600336809 /* util.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,8 @@
 		C18F28F12CF183B000336809 /* Account.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Account.hpp; sourceTree = "<group>"; };
 		C18F28F32CF1A74100336809 /* Transaction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Transaction.cpp; sourceTree = "<group>"; };
 		C18F28F42CF1A74100336809 /* Transaction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transaction.hpp; sourceTree = "<group>"; };
+		C18F28F62CF1A86600336809 /* util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		C18F28F72CF1A86600336809 /* util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = util.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,8 @@
 				C18F28F12CF183B000336809 /* Account.hpp */,
 				C18F28F32CF1A74100336809 /* Transaction.cpp */,
 				C18F28F42CF1A74100336809 /* Transaction.hpp */,
+				C18F28F62CF1A86600336809 /* util.cpp */,
+				C18F28F72CF1A86600336809 /* util.hpp */,
 			);
 			path = FinanceManager;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				C18F28F52CF1A74100336809 /* Transaction.cpp in Sources */,
 				C18F28E42CF1802E00336809 /* main.cpp in Sources */,
 				C18F28EC2CF181B100336809 /* Date.cpp in Sources */,
+				C18F28F82CF1A86600336809 /* util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,54 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS metadata
+.Spotlight-V100
+.Trashes
+
+# Xcode specific
+DerivedData/
+*.xcworkspace/
+xcuserdata/
+*.xccheckout
+*.xcuserstate
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+
+# Swift Package Manager
+.swiftpm
+.build/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Archives
+*.xcarchive
+
+# Temporary or generated files
+*.tmp
+*.temp
+*.swp
+*~
+*.lock
+*.log
+*.bak
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Other
+*.moved-aside
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.crash
+*.xcresult

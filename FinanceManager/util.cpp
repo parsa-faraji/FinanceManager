@@ -217,4 +217,30 @@ void recordTransaction(fstream &fout) {
     } while (choice != 0);
 }
 
+// read transactions from the file
+vector<Transaction> readTransactionsFromFile(const string &filename) {
+    fstream fin(filename, ios::in);
+    if (!fin.is_open()) {
+        cerr << "Error opening file for reading." << endl;
+        return {};
+    }
+
+    vector<Transaction> transactions;
+    string line;
+    while (getline(fin, line)) {
+        if (line.empty()) {
+            cerr << "Skipping empty line in file." << endl;
+            continue;
+        }
+        try {
+            cout << "Processing line: " << line << endl;
+            transactions.push_back(Transaction::fromCSV(line));
+        } catch (const exception& e) {
+            cerr << "Error parsing line: " << line << "\nReason: " << e.what() << endl;
+        }
+    }
+    fin.close();
+    return transactions;
+}
+
 

@@ -32,17 +32,17 @@ const vector<string> categories = {
 // auxilliary function to validate date mm/dd/yyyy
 bool isValidDate(const string& dateStr) {
     if (dateStr.size() != 10 || dateStr[2] != '/' || dateStr[5] != '/') return false;
-
+    
     try {
         int month = stoi(dateStr.substr(0, 2));
         int day = stoi(dateStr.substr(3, 2));
         int year = stoi(dateStr.substr(6));
-
+        
         if (month < 1 || month > 12 || day < 1 || year < 1) return false;
-
+        
         static const int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         int maxDays = daysInMonth[month - 1];
-
+        
         if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))) {
             maxDays = 29;
         }
@@ -60,7 +60,7 @@ bool isValidDate(const string& dateStr) {
 // auxilliary function to validate time hh:mm
 bool isValidTime(const string& timeStr) {
     if (timeStr.size() != 5 || timeStr[2] != ':') return false;
-
+    
     try {
         int hour = stoi(timeStr.substr(0, 2));
         int minute = stoi(timeStr.substr(3, 2));
@@ -81,7 +81,7 @@ T getValidatedInput(const string& prompt) {
     while (true) {
         cout << prompt;
         cin >> value;
-
+        
         if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -101,14 +101,14 @@ void processFile() {
         cerr << "Error opening file. Please check file directory or permissions." << endl;
         return;
     }
-
+    
     while (true) {
         cout << "\n===============================================\n";
         cout << "Welcome to Finance Management App\n";
         cout << "===============================================\n";
         cout << "1) Record a transaction\n2) View monthly summary\n3) Exit\n";
         cout << "===============================================\n";
-
+        
         int choice = getValidatedInput<int>("Enter your choice: ");
         switch (choice) {
             case 1:
@@ -136,3 +136,85 @@ void processFile() {
         }
     }
 }
+
+// record a transaction by passing output stream
+void recordTransaction(fstream &fout) {
+    string dateStr, timeStr, type, category;
+    int choice, categoryChoice, methodChoice;
+    long long accountNumber;
+    double amount;
+
+    do {
+        cout << "\n-----------------------------------------------\n";
+        cout << "Transaction Entry\n";
+        cout << "-----------------------------------------------\n";
+
+        cout << "Are you recording a Purchase or Deposit?\n1) Purchase\n2) Deposit\n0) Exit\nEnter your choice: ";
+        choice = getValidatedInput<int>("");
+
+        if (choice == 0) return;
+        if (choice != 1 && choice != 2) {
+            cerr << "Invalid choice. Please try again." << endl;
+            continue;
+        }
+
+        type = (choice == 1 ? "Purchase" : "Deposit");
+
+        while (true) {
+            cout << "Enter the date (MM/DD/YYYY): ";
+            getline(cin >> ws, dateStr); // use ws to clear leading whitespace
+            if (isValidDate(dateStr)) break;
+            cerr << "Invalid date format. Please use MM/DD/YYYY." << endl;
+        }
+
+        while (true) {
+            cout << "Enter the time (HH:MM): ";
+            getline(cin >> ws, timeStr); // use ws to clear leading whitespace
+            if (isValidTime(timeStr)) break;
+            cerr << "Invalid time format. Please use HH:MM." << endl;
+        }
+
+        accountNumber = getValidatedInput<long long>("Enter the account/card number: ");
+        amount = getValidatedInput<double>("Enter the amount (e.g., 100.50): ");
+        if (type == "Purchase") amount *= -1;
+
+        cout << "Select a category: ";
+        for (size_t i = 0; i < categories.size(); ++i) {
+            cout << i + 1 << ") " << categories[i] << " ";
+        }
+        cout << endl;
+
+        while (true) {
+            categoryChoice = getValidatedInput<int>("Enter your choice: ");
+            if (categoryChoice >= 1 && categoryChoice <= categories.size()) break;
+            cerr << "Invalid category. Please choose a valid option." << endl;
+        }
+        category = categories[categoryChoice - 1];
+
+        while (true) {
+            methodChoice = getValidatedInput<int>("Enter transaction method (1: In-store, 2: Online): ");
+            if (methodChoice == 1 || methodChoice == 2) break;
+            cerr << "Invalid method. Please choose 1 or 2." << endl;
+        }
+        TransactionMethod method = (methodChoice == 1) ? TransactionMethod::InStore : TransactionMethod::Online;
+
+        int month = stoi(dateStr.substr(0, 2));
+        int day = stoi(dateStr.substr(3, 2));
+        int year = stoi(dateStr.substr(6));
+        Date date(year, month, day);
+
+        int hour = stoi(timeStr.substr(0, 2));
+        int minute = stoi(timeStr.substr(3, 2));
+        Time time(hour, minute);
+
+        Transaction transaction = {type, date, time, Account(accountNumber, 0.0), amount, category, method};
+
+        fout << transaction.toCSV() << endl;
+        fout.flush();
+        cout << "Transaction recorded successfully!" << endl;
+
+        choice = getValidatedInput<int>("Do you want to record another transaction? (1: Yes, 0: No): ");
+    } while (choice != 0);
+}
+
+

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C18F28E42CF1802E00336809 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28E32CF1802E00336809 /* main.cpp */; };
 		C18F28EC2CF181B100336809 /* Date.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28EA2CF181B100336809 /* Date.cpp */; };
+		C18F28EF2CF182C400336809 /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C18F28ED2CF182C400336809 /* Time.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		C18F28E32CF1802E00336809 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C18F28EA2CF181B100336809 /* Date.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Date.cpp; sourceTree = "<group>"; };
 		C18F28EB2CF181B100336809 /* Date.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
+		C18F28ED2CF182C400336809 /* Time.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Time.cpp; sourceTree = "<group>"; };
+		C18F28EE2CF182C400336809 /* Time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Time.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				C18F28E32CF1802E00336809 /* main.cpp */,
 				C18F28EA2CF181B100336809 /* Date.cpp */,
 				C18F28EB2CF181B100336809 /* Date.hpp */,
+				C18F28ED2CF182C400336809 /* Time.cpp */,
+				C18F28EE2CF182C400336809 /* Time.hpp */,
 			);
 			path = FinanceManager;
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C18F28EF2CF182C400336809 /* Time.cpp in Sources */,
 				C18F28E42CF1802E00336809 /* main.cpp in Sources */,
 				C18F28EC2CF181B100336809 /* Date.cpp in Sources */,
 			);

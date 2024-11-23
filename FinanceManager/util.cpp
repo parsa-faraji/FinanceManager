@@ -243,4 +243,39 @@ vector<Transaction> readTransactionsFromFile(const string &filename) {
     return transactions;
 }
 
+// generate monthly summary
+void generateMonthlySummary(const vector<Transaction>& transactions, short int month) {
+    double income = 0.0, expenses = 0.0, total = 0.0;
+    for (const auto& transaction : transactions) {
+        if (transaction.getDate().getMonth() == month) {
+            if (transaction.getAmount() > 0) {
+                income += transaction.getAmount();
+                total += transaction.getAmount();
+            } else {
+                expenses -= transaction.getAmount();
+                total += transaction.getAmount();
+            }
+        }
+    }
 
+    cout << "Monthly Summary for Month " << month << ":\n";
+    cout << "Total Income: $" << income << "\nTotal Expenses: $" << expenses << "\nNet Total: $" << total << endl;
+}
+
+// display monthly spending patterns
+void displayMonthlySpendingPattern(const vector<Transaction>& transactions, short int month) {
+    generateMonthlySummary(transactions, month);
+
+    for (const auto& category : categories) {
+        double categorySum = 0.0;
+        for (const auto& transaction : transactions) {
+            if (transaction.getDate().getMonth() == month && transaction.getCategory() == category) {
+                categorySum += transaction.getAmount();
+            }
+        }
+        cout << "Category: " << category << "\n  Total: $" << categorySum;
+        cout << endl;
+    }
+}
+
+} // namespace FinanceManagement

@@ -36,3 +36,7 @@ void Time::setDayOrNight(string newDayOrNight) {
 short int Time::getHour() const { return hour; }
 short int Time::getMinute() const { return minute; }
 string Time::getDayOrNight() const { return dayOrNight;}
+
+bool Time::isValidTime() const {
+    return hour >= 0 && hour <= 12 && minute >= 0 && minute <= 59 && (dayOrNight == "pm" || dayOrNight == "am");
+}

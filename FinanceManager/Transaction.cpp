@@ -34,3 +34,63 @@ string Transaction::toCSV() const {
         << (method == TransactionMethod::InStore ? "In-store" : "Online");
     return oss.str();
 }
+
+// deserialize transaction from csv format
+Transaction Transaction::fromCSV(const string& csvLine) {
+    stringstream ss(csvLine);
+    string type, dateStr, timeStr, accountStr, amountStr, categoryStr, methodStr;
+
+    getline(ss, type, ',');
+    getline(ss, dateStr, ',');
+    getline(ss, timeStr, ',');
+    getline(ss, accountStr, ',');
+    getline(ss, amountStr, ',');
+    getline(ss, categoryStr, ',');
+    getline(ss, methodStr, ',');
+
+    // parse and validate the date
+    if (dateStr.size() != 10 || dateStr[2] != '/' || dateStr[5] != '/') {
+        throw invalid_argument("Invalid date format: " + dateStr);
+    }
+    int month = stoi(dateStr.substr(0, 2));
+    int day = stoi(dateStr.substr(3, 2));
+    int year = stoi(dateStr.substr(6, 4)); // ensure we extract 4 digits for the year
+    Date date(month, day, year);
+
+    // parse and validate the time
+    if (timeStr.size() != 5 || timeStr[2] != ':') {
+        throw invalid_argument("Invalid time format: " + timeStr);
+    }
+    int hour = stoi(timeStr.substr(0, 2));
+    int minute = stoi(timeStr.substr(3, 2));
+    Time time(hour, minute);
+
+    // parse account number
+    long long accountNumber;
+    try {
+        accountNumber = stoll(accountStr);
+    } catch (const exception& e) {
+        throw invalid_argument("Invalid account number: " + accountStr);
+    }
+
+    // parse amount
+    double amount;
+    try {
+        amount = stod(amountStr);
+    } catch (const exception& e) {
+        throw invalid_argument("Invalid amount: " + amountStr);
+    }
+
+    // parse transaction method
+    TransactionMethod method;
+    if (methodStr == "In-store") {
+        method = TransactionMethod::InStore;
+    } else if (methodStr == "Online") {
+        method = TransactionMethod::Online;
+    } else {
+        throw invalid_argument("Invalid transaction method: " + methodStr);
+    }
+
+    // construct and return the transaction object
+    return Transaction{type, date, time, Account(accountNumber, 0.0), amount, categoryStr, method};
+}

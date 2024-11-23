@@ -1,4 +1,4 @@
-# FinanceManagementApp
+# FinanceManager
 
 ## Author
 [Parsa Faraji Alamouti]
@@ -20,7 +20,7 @@ The **FinanceManagementApp** is designed to help individuals manage their person
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone (https://github.com/parsa-faraji/Project2-FinanceManagementApp)
+   git clone (https://github.com/parsa-faraji/FinanceManager)
 
 
 Contributing

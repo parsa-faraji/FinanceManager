@@ -56,3 +56,40 @@ bool isValidDate(const string& dateStr) {
     }
 }
 
+
+// auxilliary function to validate time hh:mm
+bool isValidTime(const string& timeStr) {
+    if (timeStr.size() != 5 || timeStr[2] != ':') return false;
+
+    try {
+        int hour = stoi(timeStr.substr(0, 2));
+        int minute = stoi(timeStr.substr(3, 2));
+        return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59;
+    } catch (const invalid_argument& e) {
+        cerr << "Error parsing time: " << timeStr << " (" << e.what() << ")" << endl;
+        return false;
+    } catch (const out_of_range& e) {
+        cerr << "Time out of range: " << timeStr << " (" << e.what() << ")" << endl;
+        return false;
+    }
+}
+
+// generic function to handle errors
+template <typename T>
+T getValidatedInput(const string& prompt) {
+    T value;
+    while (true) {
+        cout << prompt;
+        cin >> value;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cerr << "Invalid input. Please try again." << endl;
+        } else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+    }
+    return value;
+}
